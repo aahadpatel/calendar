@@ -1,0 +1,54 @@
+#top h1{
+	font-family: "Calibri";
+	color: orange;
+	position: relative;
+	font-size: 400%;
+	top: 400px;
+	margin-left: 43%; 
+    padding: 0; 
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-fill-color: white;
+   -webkit-text-stroke-color: orange;
+   	text-shadow: #FF8C00;
+    text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;  
+} 
+.g-signin2 {
+	position: absolute;
+	left:750px;
+	bottom:500px;
+}
+#main img{
+	position: fixed;
+	margin-top: 100px;
+	left: 90px;
+	width: 80%;
+	height:auto;
+}
+
+header {
+	top:0px;
+	left:0px;
+	right:0px;
+	background: #000000;
+	position: fixed;
+	width: 100%;
+	height: 90px;
+}
+
+footer {
+	bottom:0px;
+	left:0px;
+	right:0px;
+	background: #000000;
+	position: fixed;
+	width: 100%;
+	height: 90px;
+}
+
+/* clientid: 954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com
+clientsecret: kZSCyqwgPHsZUh5qpQyKpEl2 */

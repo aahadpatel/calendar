@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home</title>
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta name="google-signin-client_id" content="954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="home.css" />
+	</head>
+	<body>
+		<div id="container">
+			<header>
+			</header>
+			<div id="sycamore_calendar_home">
+				<nav>
+					<a href="signed_in_page.html">Sycamore Calendar</a> 
+				</nav>
+			</div>
+			<div id="menu"> 
+				<nav>
+					<a href="profile_page.html">Profile</a> 
+					<a href="home.html">Home</a> 
+				</nav>
+			</div>
+			<div id="wrapper">
+				<div id="top">
+					<h1>Home</h1>
+				</div>
+			</div>
+			<div id="main">
+				<p>
+					
+				</p>>
+			</div>
+		</div>
+			  <!-- Start Date: --><br>
+			  <div id="form_stuff">
+			  <div class="formatting" style="height:200px"> 
+				  <form id="form1" method="get">
+				  		<br>
+				  		<!-- Event Title: --><br>
+				  		<input type="text" id="event_title" placeholder= "Event Title" required />
+				  		<br>
+					  <input type="date" id="start_date"  required />
+					  <!-- End Date: --><br>
+					  <input type="date" id="end_date" required />
+					  <br>
+					  <!-- Start Time: --><br>
+					  <input type="time" id="start_time"  required />
+					  <br>
+					  <!-- End Time: --><br>
+					  <input type="time" id="end_time"  required />
+					  <br><br>
+					  <button id="add_event_button" onclick="addEvent();">Add Event</button>
+				</form>
+				
+				<div id="profile_picture_fixed">
+				<img src="" id="profile_picture">
+				<h2 id="profile_name_real"></h2>
+			</div>
+			</div>
+			  </div> 
+					  
+			<!-- <div id="profile_picture_fixed">
+				<img src="" id="profile_picture">
+				<h2 id="profile_name_real"></h2>
+			</div> -->
+    		<script>
+    			document.getElementById("profile_picture").src = sessionStorage.getItem("profile_image");
+    			document.getElementById("profile_name_real").innerHTML = sessionStorage.getItem("profile_name");
+         	</script>
+			
+		 <!-- <p>Google Calendar API Quickstart</p> -->
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <!-- <div id="sign_button"> 
+     	<button id="authorize_button" style="display: none;">Authorize</button>
+    	<button id="signout_button" style="display: none;">Sign Out</button>
+    </div>  -->
+     <pre id="content"></pre>
+    <script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyDw8BzcE9Pess1c4FOMkHGaQsFd_t6NBMo';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/calendar";
+
+      /* var authorizeButton = document.getElementById('authorize_button');
+      var signoutButton = document.getElementById('signout_button');  */
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+       	
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          /* authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;  */
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+        /* if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block'; 
+          listUpcomingEvents();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none'; 
+        } */
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+       function handleAuthClick(event) { 
+        gapi.auth2.getAuthInstance().signIn();
+       } 
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       * @param {string} message Text to be placed in pre element.
+       */
+      function appendPre(message) {
+        var pre = document.getElementById('content');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+			<script>
+			function addEvent() {
+				
+				
+				var start_date = document.getElementById("start_date").value;
+				var end_date = document.getElementById("end_date").value;
+
+				if(start_date > end_date) {
+					//alert(document.getElementById('start_date').validationMessage);
+					alert("Start date is greater than the end date! Please fix. ");
+				  }
+				else {
+					var start_time = document.getElementById("start_time").value;
+					var end_time = document.getElementById("end_time").value;
+					
+					if(start_time > end_time) {
+						alert("Start time is greater than the end time! Please fix. ");
+					}
+					else {
+						alert('Submission was successful!');
+						var title_event = document.getElementById("event_title").value;
+						
+						var start_dateTimeFormat = start_date + "T" + start_time + ":00-" + "07:00";
+						var end_dateTimeFormat = end_date + "T" + end_time + ":00-" + "07:00";
+						
+						
+						var event = {
+								'summary': title_event,
+								  'start': {
+									 'dateTime': start_dateTimeFormat,
+								    /* 'dateTime': '2015-05-28T09:00:00-07:00', */
+								    'timeZone': 'America/Los_Angeles'
+								  },
+								  'end': {
+									 'dateTime': end_dateTimeFormat,
+								    /* 'dateTime': '2015-05-28T17:00:00-07:00', */
+								    'timeZone': 'America/Los_Angeles'
+								  },
+								  /* 'recurrence': [
+								    'RRULE:FREQ=DAILY;COUNT=1'
+								  ], */
+								};
+
+						var request = gapi.client.calendar.events.insert({
+						  'calendarId': 'primary',
+						  'resource': event
+						});
+
+						request.execute(function(event) {
+							/* console.log("success"); */
+						});
+					}
+				}
+			}
+
+				
+			</script>
+			<footer>
+				
+			</footer>
+	</body>
+</html>

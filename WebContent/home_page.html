@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sign-In</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta name="google-signin-client_id" content="954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script>
+		<link rel="stylesheet" type="text/css" href="home_page.css" />
+	</head>
+	<body>
+		<div id="container">
+			<header>
+				<!-- <h1> This is a header </h1> -->
+			</header>
+			<div class="g-signin2" data-onsuccess="onSignIn"></div>
+			<!-- <a href="javascript:signOut()">Sign Out</a> -->
+			
+			 <script>
+				function onSignIn(googleUser) { 
+					let GoogleAuth = gapi.auth2.getAuthInstance();
+			       	 // Retrieve the GoogleUser object for the current user.
+			       	var GoogleUser = GoogleAuth.currentUser.get();
+			       	GoogleUser.grant({'scope':'https://www.googleapis.com/auth/calendar'});
+					  var profile = googleUser.getBasicProfile();
+					  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+					  
+					  sessionStorage.setItem("profile_image", profile.getImageUrl());	
+					  
+					  console.log('Name: ' + profile.getName());
+					  
+					  sessionStorage.setItem("profile_name", profile.getName());
+					  //given name and family name do that 
+					  
+					  console.log('Image URL: ' + profile.getImageUrl());
+					  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+					  window.location.assign("profile_page.html");
+				  }
+			</script>
+			
+			<div id="wrapper">
+				<div id="top">
+					<h1>Sycamore Calendar</h1>
+				</div>
+			</div>
+			<div id="main">
+				<p>
+					<img src="kisspng-autohuerto-leaf-sycamore-maple-tree-american-sycam-5ad7af088752d2.0487427315240844885543.png" style="width:500px;height:500px;"/>
+				</p>>
+			</div>
+			</div>
+			<footer>
+				<!-- <h1> This is a footer </h1> -->
+			</footer>
+	</body>
+</html>

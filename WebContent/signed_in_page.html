@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sign-In</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta name="google-signin-client_id" content="954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script>
+		<link rel="stylesheet" type="text/css" href="signed_in_page.css" />
+	</head>
+	<body>
+		<div id="container">
+			<header>
+				<!-- <h1> This is a header </h1> -->
+			</header> 
+			
+			<div class="g-signin2" data-onsuccess="onSignIn" onclick="signOut()"></div>
+			
+			<div id="menu"> 
+				<nav>
+					<a href="profile_page.html">Profile</a> 
+					<a href="home.html">Home</a> 
+				</nav>
+			</div>
+			<div id="wrapper">
+				<div id="top">
+					<h1>Sycamore Calendar</h1>
+				</div>
+			</div>
+				<div id="main">
+					<p>
+						<img src="kisspng-autohuerto-leaf-sycamore-maple-tree-american-sycam-5ad7af088752d2.0487427315240844885543.png" style="width:500px;height:500px;"/>
+					</p>>
+					<script>
+						function signOut() {
+						    var auth2 = gapi.auth2.getAuthInstance();
+						    auth2.signOut().then(function () {
+						    window.open("home_page.html", "_self");
+						    });
+						  }
+			  
+					</script>
+				</div>
+			</div>
+			s
+			<footer>
+				<!-- <h1> This is a header </h1> -->
+			</footer>
+	</body>
+</html>

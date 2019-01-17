@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>My Profile</title>
+		<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<meta name="google-signin-client_id" content="954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com">
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="script.js"></script> -->
+		<link rel="stylesheet" type="text/css" href="profile_page.css" />
+	</head>
+	<body>
+	
+		 <!-- <p>Google Calendar API Quickstart</p> -->
+
+    <!--Add buttons to initiate auth sequence and sign out-->
+    <!-- <div id="sign_button"> 
+     	<button id="authorize_button" style="display: none;">Authorize</button>
+    	<button id="signout_button" style="display: none;">Sign Out</button>
+    </div>  -->
+     <pre id="content"></pre>
+    <script type="text/javascript">
+      // Client ID and API key from the Developer Console
+      var CLIENT_ID = '954118852850-19toca1rll88vvhe4qas03h7h4kbam90.apps.googleusercontent.com';
+      var API_KEY = 'AIzaSyDw8BzcE9Pess1c4FOMkHGaQsFd_t6NBMo';
+
+      // Array of API discovery doc URLs for APIs used by the quickstart
+      var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+
+      // Authorization scopes required by the API; multiple scopes can be
+      // included, separated by spaces.
+      var SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+
+      /* var authorizeButton = document.getElementById('authorize_button');
+      var signoutButton = document.getElementById('signout_button');  */
+
+      /**
+       *  On load, called to load the auth2 library and API client library.
+       */
+      function handleClientLoad() {
+        gapi.load('client:auth2', initClient);
+      }
+
+      /**
+       *  Initializes the API client library and sets up sign-in state
+       *  listeners.
+       */
+      function initClient() {
+        gapi.client.init({
+          apiKey: API_KEY,
+          clientId: CLIENT_ID,
+          discoveryDocs: DISCOVERY_DOCS,
+          scope: SCOPES
+        }).then(function () {
+          // Listen for sign-in state changes.
+          gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+          // Handle the initial sign-in state.
+          updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+          /* authorizeButton.onclick = handleAuthClick;
+          signoutButton.onclick = handleSignoutClick;  */
+        });
+      }
+
+      /**
+       *  Called when the signed in status changes, to update the UI
+       *  appropriately. After a sign-in, the API is called.
+       */
+      function updateSigninStatus(isSignedIn) {
+    	  listUpcomingEvents();
+        /* if (isSignedIn) {
+          authorizeButton.style.display = 'none';
+          signoutButton.style.display = 'block'; 
+          listUpcomingEvents();
+        } else {
+          authorizeButton.style.display = 'block';
+          signoutButton.style.display = 'none'; 
+        } */
+      }
+
+      /**
+       *  Sign in the user upon button click.
+       */
+       function handleAuthClick(event) { 
+        gapi.auth2.getAuthInstance().signIn();
+       } 
+
+      /**
+       *  Sign out the user upon button click.
+       */
+      function handleSignoutClick(event) {
+        gapi.auth2.getAuthInstance().signOut();
+      }
+
+      /**
+       * Append a pre element to the body containing the given message
+       * as its text node. Used to display the results of the API call.
+       *
+       * @param {string} message Text to be placed in pre element.
+       */
+      function appendPre(message) {
+        var pre = document.getElementById('content');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+      /**
+       * Print the summary and start datetime/date of the next ten events in
+       * the authorized user's calendar. If no events are found an
+       * appropriate message is printed.
+       */
+      function listUpcomingEvents() {
+        gapi.client.calendar.events.list({
+          'calendarId': 'primary',
+          'timeMin': (new Date()).toISOString(),
+          'showDeleted': false,
+          'singleEvents': true,
+          'maxResults': 10,
+          'orderBy': 'startTime'
+        }).then(function(response) {
+          var events = response.result.items;
+          appendPre('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+          
+          var my_table = document.getElementById("events_table");
+          //var image = document.getElementById("myImg").src = profile.getImageUrl(); 
+         /*  
+          
+     		var header = document.createElement("tr");
+     		
+     		
+     		var event_summary_title = header.insertCell(0);
+            event_summary_title.innerHTML = "Event Summary";
+  			header.append(insert_event_summary);
+
+  			
+  			var time_title = header.insertCell(0);
+            time_title.innerHTML = "Time";
+  			header.append(insert_time);
+            
+     		
+            var date_title = header.insertCell(0);
+  			date_title.innerHTML = "Date";
+  			header.append(insert_date);
+
+            
+            //append row to events_table
+      		 my_table.append(header);
+            // my_table.innerHTML += header.innerHTML;
+           */
+
+          if (events.length > 0) {
+        	  
+        	  var header = document.createElement("tr");
+        	  
+        	  var temp3 = header.insertCell(0);
+        	  temp3.innerHTML = "Date";
+        	  header.append(temp3);
+        	  
+        	  var temp2 = header.insertCell(0);
+        	  temp2.innerHTML = "Time";
+        	  header.append(temp2);
+        	  
+        	  var temp1 = header.insertCell(0);
+        	  temp1.innerHTML = "Event Summary";
+        	  header.append(temp1);
+
+        	  
+        	  my_table.append(header);
+        	 
+        	  
+            for (i = 0; i < events.length; i++) {
+            	var my_row = document.createElement("tr");
+	   //         var my_column1 = document.createElement("td");
+	               
+	            var event = events[i];
+	            var when = event.start.dateTime;
+	            var event_node = document.createTextNode(event.summary);
+	            var when_node = document.createTextNode(event.start.dateTime);
+
+	            var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	            var split = (event.start.dateTime).split('-');
+	            var full_date_time_split = (event.start.dateTime).split('T');
+	            var date_split = (full_date_time_split[0]).split('-')
+	            var time_split = (full_date_time_split[1]).split('-')
+	            
+	            //all vars needed to input in calendar
+	            var date = months[date_split[1]-1];
+	            var time = time_split[0];
+	            var event_summary = event.summary;
+	            var day = date_split[2];
+	            var year = date_split[0];
+	            
+	            var time_am_pm = time.split(":");
+	            var new_time = 0;
+	            
+	            if(time_am_pm[0] >= 12) {
+	            	if(time_am_pm[0] == 12) {
+	            		new_time = 12 + ":" + time_am_pm[1] +  " PM";
+	            	}
+	            	else {
+	            		new_time = time_am_pm[0]%12 + ":" + time_am_pm[1] +  " PM";
+		            	}
+	            }
+	            else {
+	            	if(time_am_pm[0] == 00) {
+            			new_time = 12 + ":" + time_am_pm[1] +  " AM";
+            		}
+	            	else {
+	            		new_time = time_am_pm[0] + ":" + time_am_pm[1] + " AM";
+	            	}
+	            }
+	            
+	            //var time_am_split = time_am_pm[0] + ":" + time_am_pm[1];
+	            
+	            //insert date, time, event summart
+	            var insert_date = my_row.insertCell(0);
+				insert_date.innerHTML = date + " " + day + ", " + year;
+				my_row.append(insert_date);
+	            
+	            var insert_time = my_row.insertCell(0);
+				insert_time.innerHTML = new_time;
+				my_row.append(insert_time);
+	            
+	            var insert_event_summary = my_row.insertCell(0);
+				insert_event_summary.innerHTML = event.summary;
+				my_row.append(insert_event_summary);
+	            
+	            //append row to events_table
+	            my_table.append(my_row);
+	             
+          		if (!when) {
+             		when = event.start.date;
+           		}          
+            	//appendPre(event.summary + ' (' + when + ')');
+            }
+          } else {
+            	appendPre('\t\tNo upcoming events found. You should add some.');
+          	}
+        });
+      }
+
+    </script>
+
+    <script async defer src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+    		<!-- <img src="https://i.stack.imgur.com/34AD2.jpg" alt="Avatar">  -->
+    		
+    		<div id="profile_picture_fixed">
+	    		<img src="" id="profile_picture">
+	    		<h2 id="profile_name_real"></h2>
+    		</div>
+    		<script>
+    			document.getElementById("profile_picture").src = sessionStorage.getItem("profile_image");
+    			document.getElementById("profile_name_real").innerHTML = sessionStorage.getItem("profile_name");
+         	</script>
+    	
+		<div id="container">
+			<header>
+			</header>
+			<div id="sycamore_calendar_home">
+				<nav>
+					<a href="signed_in_page.html">Sycamore Calendar</a> 
+				</nav>
+			</div>
+			<!-- <div id="table_wrapper">  -->
+				<div id="events_table" style= "overflow:scroll; height:400px;">
+				
+				</div>
+			<!-- </div> -->
+			
+			<div id="menu"> 
+				<nav>
+					<a href="profile_page.html">Profile</a> 
+					<a href="home.html">Home</a> 
+				</nav>
+			</div>
+			<div id="wrapper">
+				<div id="top">
+					<h1>Upcoming Events</h1>
+				</div>
+			</div>
+			</div>
+			<footer>
+				
+			</footer>
+	</body>
+</html>
